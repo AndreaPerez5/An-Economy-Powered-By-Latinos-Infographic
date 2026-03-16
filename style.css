@@ -1,0 +1,191 @@
+/* style.css */
+
+/* make body scrollable with no margin/padding */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #060440;
+  text-align: center;
+}
+
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* header container with centered gif */
+header {
+  width: 60%;
+  height: 100px;            /* adjust as needed */
+  background: url("header.gif") no-repeat center center;
+  background-size: contain; /* or cover */
+}
+
+
+/* ensure any header img is centered and responsive */
+header img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  width: 100%;          /* allow it to scale with container */
+  object-fit: contain;  /* preserve aspect ratio */
+}
+
+/* page hero media (supports WebP + GIF fallback) */
+.hero-header {
+  display: block;
+  margin: 0 auto 32px;
+  width: min(650px, 100%);
+}
+
+.hero-media {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 650px;
+  margin: 0 auto;
+  image-rendering: auto;
+}
+
+.title-svg {
+  display: block;
+  width: min(650px, 100%);
+  height: auto;
+  margin: 0 auto;
+}
+
+/* center all <b> elements by default */
+b {
+  display: block;
+  text-align: center;
+}
+
+/* intro paragraph styling */
+.intro {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* body paragraph styling */
+.body {
+  font-style: normal;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* spacing adjustments */
+header {
+  margin-bottom: 50px; /* space below header */
+}
+
+h2 {
+  margin: 28px 0 24px; /* more space around h2 headings */
+}
+
+/* ensure main content isn’t flush against headers */
+main {
+  margin-top: 100px;
+}
+
+/* boxed container for centered content */
+.container {
+  max-width: 800px;      /* limit width */
+  margin: 0 auto;        /* center horizontally */
+  padding: 1rem 2rem;    /* inner space */
+  background: hsl(0, 0%, 100%);      /* white background in case body has color */
+  box-shadow: #69696b;
+}
+
+/* generic responsive SVG */
+.svg-responsive {
+  max-width: 50%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* paragraph highlight box with shadow */
+.highlight-box {
+  padding: 1rem;
+  background: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 4px;
+}
+
+/* header element colors */
+h2 {
+  color: #085d72; /* dark blue-gray for main headings */
+}
+
+h4 {
+  color: #333636; /* lighter gray for subheadings */
+  margin-top: 40px;
+}
+
+/* tighten spacing around the bar chart section */
+#barchart {
+  margin-top: 20px;
+  padding-top: 0;
+}
+
+#barchart svg {
+  display: block;
+  margin: 0 auto;
+}
+
+/* tighten spacing in the GDP section right before the chart */
+h2 + p {
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.workers-image {
+  max-width: 60%;
+  height: auto;
+  margin-top: 30px;
+}
+
+.impact-title {
+  margin-top: 120px;
+}
+
+/* spacing between major sections */
+section,
+#barchart,
+#line_chart {
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+/* tighter top spacing for content containers */
+.container {
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+
+/* tighten spacing for first section stat callout */
+.stats-container {
+  margin-bottom: 10px;
+}
+
+.population-note {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+/* keep breathing room when a section starts with a heading */
+section > h2,
+body > h2 {
+  margin-top: 24px;
+}
+
+
