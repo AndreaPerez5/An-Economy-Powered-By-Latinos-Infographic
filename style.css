@@ -6,35 +6,43 @@ html, body {
   padding: 0;
   height: 100%;
   overflow-x: hidden;
+  overscroll-behavior-y: none;
   font-family: 'Helvetica Neue', Arial, sans-serif;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 15px;
   color: #060440;
   text-align: center;
 }
 
 body {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px;
+  max-width: none;
+  margin: 0;
+  padding: 0;
 }
 
-/* header container with centered gif */
-header {
-  width: 60%;
-  height: 100px;            /* adjust as needed */
-  background: url("header.gif") no-repeat center center;
-  background-size: contain; /* or cover */
+/* expanded hero/header section */
+.hero-section {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 80px 0 96px;
+  box-sizing: border-box;
+  background-color: #ffffff;
 }
 
 
-/* ensure any header img is centered and responsive */
-header img {
+/* ensure hero images are centered and responsive */
+.hero-section img {
   display: block;
   margin: 0 auto;
   max-width: 100%;
   height: auto;
-  width: 100%;          /* allow it to scale with container */
+  width: auto;
   object-fit: contain;  /* preserve aspect ratio */
 }
 
@@ -42,23 +50,49 @@ header img {
 .hero-header {
   display: block;
   margin: 0 auto 32px;
-  width: min(650px, 100%);
+  width: min(600px, 100%);
+}
+
+.hero-section img.hero-header.hero-media {
+  width: min(600px, 100%) !important;
+  max-width: 500px !important;
 }
 
 .hero-media {
   display: block;
-  width: 100%;
+  width: auto;
   height: auto;
-  max-width: 650px;
+  max-width: 100%;
   margin: 0 auto;
   image-rendering: auto;
 }
 
+.hero-section img.hero-media {
+  width: auto;
+  max-width: 100%;
+}
+
 .title-svg {
   display: block;
-  width: min(650px, 100%);
+  width: auto;
   height: auto;
+  max-width: 40%;
   margin: 0 auto;
+}
+
+.hero-section img.title-svg {
+  width: auto;
+  max-width: 60%;
+}
+
+.author-background {
+  width: 100%;
+  min-height: 560px;
+  margin: 20px auto 24px;
+  background-image: url("Images/BackgorunImage.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 /* center all <b> elements by default */
@@ -67,9 +101,15 @@ b {
   text-align: center;
 }
 
+.chart-footnote {
+  margin-top: -55px;
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
 /* intro paragraph styling */
 .intro {
-  font-weight: bold;
+  font-weight: 400;
   font-size: 16px;
   color: #333;
   line-height: 1.6;
@@ -83,8 +123,8 @@ b {
 }
 
 /* spacing adjustments */
-header {
-  margin-bottom: 50px; /* space below header */
+.hero-section {
+  margin-bottom: 72px;
 }
 
 h2 {
@@ -98,7 +138,7 @@ main {
 
 /* boxed container for centered content */
 .container {
-  max-width: 800px;      /* limit width */
+  max-width: 900px;      /* limit width */
   margin: 0 auto;        /* center horizontally */
   padding: 1rem 2rem;    /* inner space */
   background: hsl(0, 0%, 100%);      /* white background in case body has color */
@@ -107,7 +147,19 @@ main {
 
 /* generic responsive SVG */
 .svg-responsive {
-  max-width: 50%;
+  max-width: 60%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.stats-container .svg-responsive {
+  max-width: 80%;
+}
+
+.original-size-image {
+  width: auto;
+  max-width: none;
   height: auto;
   display: block;
   margin: 0 auto;
@@ -128,13 +180,14 @@ h2 {
 
 h4 {
   color: #333636; /* lighter gray for subheadings */
-  margin-top: 40px;
+  margin: 40px 0 6px;
 }
 
 /* tighten spacing around the bar chart section */
 #barchart {
-  margin-top: 20px;
+  margin-top: 0;
   padding-top: 0;
+  margin-bottom: 60px;
 }
 
 #barchart svg {
@@ -149,27 +202,79 @@ h2 + p {
 }
 
 .workers-image {
-  max-width: 60%;
+  width: 60% !important;
+  max-width: 60% !important;
   height: auto;
-  margin-top: 30px;
+  margin-top: 120px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .impact-title {
   margin-top: 120px;
+  margin-bottom: 110px;
 }
 
 /* spacing between major sections */
 section,
 #barchart,
-#line_chart {
-  margin-top: 40px;
+#line_chart,
+#mosaic_chart {
+  margin-top: 0;
+  margin-bottom: 80px;
+}
+
+.background-section {
+  margin-bottom: 20px;
+}
+
+.background-section .container {
   margin-bottom: 60px;
+}
+
+.background-section .stats-container {
+  margin-bottom: 20px;
+}
+
+.background-section + .container {
+  margin-top: 0;
+}
+
+/* remove extra space before/after footer */
+body > .container:last-of-type {
+  margin-bottom: 0;
+}
+
+footer {
+  margin: 30px 0 0;
+  padding: 0;
+  line-height: 1.4;
+}
+
+footer img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 50px;
+}
+
+body > footer:last-child {
+  margin-bottom: 20px;
+  padding-bottom: 0;
+}
+
+.footer-source {
+  margin: 0 0 10px;
+  padding: 0;
+  color: #a9a9a9;
+  font-size: 9pt;
 }
 
 /* tighter top spacing for content containers */
 .container {
   margin-top: 20px;
-  margin-bottom: 60px;
+  margin-bottom: 100px;
 }
 
 /* tighten spacing for first section stat callout */

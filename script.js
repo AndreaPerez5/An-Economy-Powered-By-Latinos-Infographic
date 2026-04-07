@@ -32,8 +32,8 @@ d3.csv("Data/GlobalGDPComparison_2023.csv").then(function(data) {
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x))
     .selectAll("text")
-      .attr("transform", "translate(-10,0)rotate(-45)")
-      .style("text-anchor", "end");
+      .attr("transform", null)
+      .style("text-anchor", "middle");
 
   // X axis label
   svg.append("text")
@@ -60,14 +60,14 @@ d3.csv("Data/GlobalGDPComparison_2023.csv").then(function(data) {
     .attr("y", function(d) { return y(d.Entity); })
     .attr("width", function(d) { return x(d.GDP_Nominal_USD_Trillion); })
     .attr("height", y.bandwidth() )
-    .attr("fill", function(d) { return d.Entity === "U.S. LATINO GDP" ? "red" : "#2eb6e0"; })
+    .attr("fill", function(d) { return d.Entity === "U.S. LATINO GDP" ? "red" : "#7bbafd"; })
 
 
     // .attr("x", function(d) { return x(d.Country); })
     // .attr("y", function(d) { return y(d.Value); })
     // .attr("width", x.bandwidth())
     // .attr("height", function(d) { return height - y(d.Value); })
-    // .attr("fill", "#2daadf")
+    // .attr("fill", "#2b83a8")
 
 })
 // ==========================
@@ -195,7 +195,7 @@ d3.csv("Data/participation_rate.csv").then(function(data) {
     .attr("cx", d => x(d.year))
     .attr("cy", d => y(d.total))
     .attr("r", 6)
-    .attr("fill", "#e63946")
+    .attr("fill", "#f65361")
     .attr("stroke", "white")
     .attr("stroke-width", 2)
     .attr("cursor", "pointer")
@@ -292,7 +292,7 @@ console.log(root.leaves())
   // use this information to add rectangles:
   var color = d3.scaleOrdinal()
     .domain(root.leaves().map(function(d) { return d.data.label; }))
-    .range(["rgb(240, 174, 67)", "#075265", "#72d5ff", "#9467bd", "#8c564b"]);
+    .range(["rgb(240, 174, 67)", "#0a0d2d", "#7bbafd", "#9467bd", "#8c564b"]);
 
   svg3
     .selectAll("rect")
