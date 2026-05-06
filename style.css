@@ -20,6 +20,17 @@ body {
   padding: 0;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  color: #7bbafd;
+}
+
+.hero-section h3 {
+  color: #03185a;
+  font-size: 1.5rem;
+}
+
 /* expanded hero/header section */
 .hero-section {
   min-height: 80vh;
@@ -32,7 +43,11 @@ body {
   margin-right: calc(50% - 50vw);
   padding: 80px 0 96px;
   box-sizing: border-box;
-  background-color: #ffffff;
+  background-color: #f8f5ef;
+}
+
+.hero-section .container {
+  background: #f8f5ef;
 }
 
 
@@ -118,8 +133,10 @@ b {
 /* body paragraph styling */
 .body {
   font-style: normal;
-  color: #555;
-  line-height: 1.5;
+  font-weight: 400;
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
 }
 
 /* spacing adjustments */
@@ -129,6 +146,10 @@ b {
 
 h2 {
   margin: 28px 0 24px; /* more space around h2 headings */
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 
 /* ensure main content isn’t flush against headers */
@@ -157,9 +178,35 @@ main {
   max-width: 80%;
 }
 
+.first-section-svg {
+  opacity: 0;
+  transform: translateY(26px) scale(0.985);
+  transition: opacity 0.85s ease, transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.first-section-svg.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.first-section-svg.first-section-svg-delay {
+  transition-delay: 0.18s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .first-section-svg,
+  .first-section-svg.is-visible,
+  .first-section-svg.first-section-svg-delay {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .original-size-image {
-  width: auto;
-  max-width: none;
+  width: min(760px, 100%);
+  max-width: 100%;
   height: auto;
   display: block;
   margin: 0 auto;
@@ -168,14 +215,42 @@ main {
 /* paragraph highlight box with shadow */
 .highlight-box {
   padding: 1rem;
-  background: #f9f9f9;
+  background: #f8f5ef;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   border-radius: 4px;
 }
 
+/* Scrollama highlight-box steps */
+.scrolly-highlight-step {
+  position: relative;
+  z-index: 20;
+}
+
+.scrolly-highlight-step .highlight-box {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  background: rgba(248, 245, 239, 0.96);
+}
+
+.scrolly-highlight-step.is-active .highlight-box {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#barchart,
+#line_chart,
+#mosaic_chart,
+.workers-image,
+.original-size-image,
+.svg-responsive {
+  position: relative;
+  z-index: 1;
+}
+
 /* header element colors */
 h2 {
-  color: #085d72; /* dark blue-gray for main headings */
+  color: #7bbafd;
 }
 
 h4 {
@@ -185,14 +260,43 @@ h4 {
 
 /* tighten spacing around the bar chart section */
 #barchart {
-  margin-top: 0;
+  margin-top: 40px;
   padding-top: 0;
   margin-bottom: 60px;
+}
+
+#line_chart {
+  margin-top: 20px;
 }
 
 #barchart svg {
   display: block;
   margin: 0 auto;
+}
+
+#barchart svg,
+#line_chart svg,
+#mosaic_chart svg {
+  width: 100%;
+  height: auto;
+}
+
+#barchart svg {
+  max-width: 860px;
+}
+
+#line_chart svg {
+  max-width: 700px;
+}
+
+#mosaic_chart svg {
+  max-width: 445px;
+}
+
+#barchart svg text {
+  font-size: 12px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  fill: #333;
 }
 
 /* tighten spacing in the GDP section right before the chart */
@@ -201,11 +305,15 @@ h2 + p {
   margin-bottom: 24px;
 }
 
+.barchart-intro {
+  margin-bottom: 44px;
+}
+
 .workers-image {
-  width: 60% !important;
-  max-width: 60% !important;
+  width: 84%;
+  max-width: 84%;
   height: auto;
-  margin-top: 120px;
+  margin-top: 30px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -291,6 +399,24 @@ body > footer:last-child {
 section > h2,
 body > h2 {
   margin-top: 24px;
+}
+
+.content-section {
+  width: min(980px, 100%);
+  margin: 0 auto 72px;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.content-section > p {
+  max-width: 760px;
+  margin: 0 auto 24px;
+}
+
+.chart-tooltip {
+  background: #ffffff !important;
+  color: #111 !important;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 

@@ -1,14 +1,17 @@
 // D3 BAR CHART
 // set the dimensions and margins of the graph
-var margin = {top: 0, right: 30, bottom: 50, left: 90};
-    width = 700 - margin.left - margin.right,
+var barOuterWidth = 860;
+var margin = {top: 0, right: 30, bottom: 50, left: 180};
+  width = barOuterWidth - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#barchart")
   .append("svg")
-    .attr("width", width + margin.left + margin.right)
+    .attr("width", barOuterWidth)
     .attr("height", height + margin.top + margin.bottom)
+    .attr("viewBox", "0 0 " + barOuterWidth + " " + (height + margin.top + margin.bottom))
+    .attr("preserveAspectRatio", "xMidYMid meet")
   .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
@@ -26,11 +29,14 @@ d3.csv("Data/GlobalGDPComparison_2023.csv").then(function(data) {
 
   // Add X axis
   var x = d3.scaleLinear()
-    .domain([0, 30])
+    .domain([0, 28])
     .range([ 0, width]);
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x))
+    .call(d3.axisBottom(x).tickSize(0).tickValues([0, 4, 8, 12, 16, 20, 24, 28]))
+    .select(".domain").remove();
+
+  svg.select("g:last-of-type")
     .selectAll("text")
       .attr("transform", null)
       .style("text-anchor", "middle");
@@ -52,15 +58,43 @@ d3.csv("Data/GlobalGDPComparison_2023.csv").then(function(data) {
     .select(".domain").remove();
 
   //Bars
-  svg.selectAll("myRect")
+  var bars = svg.selectAll("myRect")
     .data(data)
     .enter()
     .append("rect")
     .attr("x", x(0) )
     .attr("y", function(d) { return y(d.Entity); })
-    .attr("width", function(d) { return x(d.GDP_Nominal_USD_Trillion); })
+    .attr("width", 0)
     .attr("height", y.bandwidth() )
-    .attr("fill", function(d) { return d.Entity === "U.S. LATINO GDP" ? "red" : "#7bbafd"; })
+    .attr("fill", function(d) { return d.Entity === "U.S. LATINO GDP" ? "red" : "#7bbafd"; });
+
+  function animateBars() {
+    bars
+      .interrupt()
+      .transition()
+      .duration(1100)
+      .delay(function(d, i) { return i * 140; })
+      .ease(d3.easeCubicOut)
+      .attr("width", function(d) { return x(d.GDP_Nominal_USD_Trillion); });
+  }
+
+  var barChartContainer = document.querySelector("#barchart");
+  if (barChartContainer && "IntersectionObserver" in window) {
+    var hasAnimatedBars = false;
+    var barObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!hasAnimatedBars && entry.isIntersecting) {
+          hasAnimatedBars = true;
+          animateBars();
+          barObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+
+    barObserver.observe(barChartContainer);
+  } else {
+    animateBars();
+  }
 
 
     // .attr("x", function(d) { return x(d.Country); })
@@ -84,6 +118,8 @@ var svg2 = d3.select("#line_chart")
   .append("svg")
     .attr("width", width2 + margin2.left + margin2.right)
     .attr("height", height2 + margin2.top + margin2.bottom)
+    .attr("viewBox", "0 0 " + (width2 + margin2.left + margin2.right) + " " + (height2 + margin2.top + margin2.bottom))
+    .attr("preserveAspectRatio", "xMidYMid meet")
   .append("g")
     .attr("transform",
           "translate(" + margin2.left + "," + margin2.top + ")");
@@ -94,12 +130,17 @@ var svg2 = d3.select("#line_chart")
 // ==========================
 var tooltip = d3.select("body")
   .append("div")
+  .attr("class", "chart-tooltip")
   .style("position", "absolute")
   .style("background", "white")
+  .style("color", "#111")
   .style("padding", "8px")
   .style("border", "1px solid #ccc")
   .style("border-radius", "4px")
+  .style("box-shadow", "0 4px 12px rgba(0,0,0,0.15)")
   .style("font-size", "12px")
+  .style("line-height", "1.35")
+  .style("z-index", "9999")
   .style("opacity", 0)
   .style("pointer-events", "none");
 
@@ -136,8 +177,10 @@ d3.csv("Data/participation_rate.csv").then(function(data) {
     .attr("transform", "translate(0," + height2 + ")")
     .call(d3.axisBottom(x)
       .tickValues([2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025])
+      .tickSize(0)
       .tickFormat(d3.format("d"))
-    );
+    )
+    .select(".domain").remove();
 
 
   // ==========================
@@ -148,7 +191,12 @@ d3.csv("Data/participation_rate.csv").then(function(data) {
     .range([height2, 0]);
 
   svg2.append("g")
-    .call(d3.axisLeft(y).tickFormat(d => (d/1000000).toFixed(0) + 'M'));
+    .call(
+      d3.axisLeft(y)
+        .tickSize(0)
+        .tickFormat(d => (d/1000000).toFixed(0) + 'M')
+    )
+    .select(".domain").remove();
 
 
   // ==========================
@@ -178,6 +226,7 @@ d3.csv("Data/participation_rate.csv").then(function(data) {
     .y(d => y(d.total));
     
   svg2.append("path")
+    .attr("class", "workers-line")
     .datum(data)
     .attr("fill", "none")
     .attr("stroke", "#e63946")
@@ -192,6 +241,7 @@ d3.csv("Data/participation_rate.csv").then(function(data) {
     .data(data)
     .enter()
     .append("circle")
+    .attr("class", "workers-point")
     .attr("cx", d => x(d.year))
     .attr("cy", d => y(d.total))
     .attr("r", 6)
@@ -219,13 +269,48 @@ d3.csv("Data/participation_rate.csv").then(function(data) {
     });
 
   // Title
-  svg2.append("text")
-    .attr("x", width2 / 2)
-    .attr("y", -15)
-    .attr("text-anchor", "middle")
-    .attr("font-size", "14px")
-    .attr("font-weight", "bold")
-    .text("Total Workers by Year (2016-2025)");
+  function animateLineChart() {
+    var path = svg2.select(".workers-line");
+    var points = svg2.selectAll(".workers-point");
+    var totalLength = path.node().getTotalLength();
+
+    path
+      .interrupt()
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition()
+      .duration(1400)
+      .ease(d3.easeCubicInOut)
+      .attr("stroke-dashoffset", 0);
+
+    points
+      .interrupt()
+      .attr("opacity", 0)
+      .attr("r", 0)
+      .transition()
+      .delay(function(d, i) { return 700 + (i * 90); })
+      .duration(350)
+      .attr("opacity", 1)
+      .attr("r", 6);
+  }
+
+  var lineChartContainer = document.querySelector("#line_chart");
+  if (lineChartContainer && "IntersectionObserver" in window) {
+    var hasAnimatedLineChart = false;
+    var lineObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!hasAnimatedLineChart && entry.isIntersecting) {
+          hasAnimatedLineChart = true;
+          animateLineChart();
+          lineObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+
+    lineObserver.observe(lineChartContainer);
+  } else {
+    animateLineChart();
+  }
 
 }).catch(function(error) {
   console.error("Error loading data:", error);
@@ -249,12 +334,20 @@ var svg3 = d3.select("#mosaic_chart")
 .append("svg")
   .attr("width", width3 + margin3.left + margin3.right)
   .attr("height", height3 + margin3.top + margin3.bottom)
+  .attr("viewBox", "0 0 " + (width3 + margin3.left + margin3.right) + " " + (height3 + margin3.top + margin3.bottom))
+  .attr("preserveAspectRatio", "xMidYMid meet")
 .append("g")
   .attr("transform",
         "translate(" + margin3.left + "," + margin3.top + ")");
 
 // Read data
 d3.csv("Data/LatinoEconomicData_2023.csv").then(function(data) {
+
+  function formatMoneyFromTrillions(valueTrillions) {
+    if (!Number.isFinite(valueTrillions)) return "";
+    if (valueTrillions >= 1) return "$" + valueTrillions.toFixed(1) + "T";
+    return "$" + (valueTrillions * 1000).toFixed(0) + "B";
+  }
 
   // Convert numeric values and normalize labels
   data.forEach(function(d) {
@@ -302,7 +395,7 @@ console.log(root.leaves())
       .attr('x', function (d) { return d.x0; })
       .attr('y', function (d) { return d.y0; })
       .attr('width', function (d) { return d.x1 - d.x0; })
-      .attr('height', function (d) { return d.y1 - d.y0; })
+      .attr('height', 0)
       .style("stroke", "black")
       .style("fill", function(d) { return color(d.data.label); })
       .style("cursor", "pointer")
@@ -312,6 +405,7 @@ console.log(root.leaves())
           .style("opacity", 1)
           .html(
             "<strong>" + d.data.label + "</strong><br>" +
+            "Amount: " + formatMoneyFromTrillions(d.data.value_trillions) + "<br>" +
             "Share: " + d.data.percentage + "%"
           )
           .style("left", (event.pageX + 15) + "px")
@@ -327,6 +421,8 @@ console.log(root.leaves())
         tooltip.style("opacity", 0);
       });
 
+  var mosaicRects = svg3.selectAll("rect");
+
   // Add wrapped labels (hide on very small tiles to avoid overlap)
   var labelPadding = 6;
   var lineHeight = 14;
@@ -341,6 +437,7 @@ console.log(root.leaves())
       .attr("y", function(d){ return d.y0 + labelPadding + 10; })
       .attr("font-size", "12px")
       .attr("fill", "white")
+      .style("opacity", 0)
       .each(function(d) {
         var textSel = d3.select(this);
         var boxWidth = (d.x1 - d.x0) - (labelPadding * 2);
@@ -375,7 +472,56 @@ console.log(root.leaves())
             .attr("dy", i === 0 ? 0 : lineHeight)
             .text(line);
         });
+
+        if (maxLines > lines.length && boxHeight >= (lineHeight * 2)) {
+          textSel.append("tspan")
+            .attr("x", d.x0 + labelPadding)
+            .attr("dy", lineHeight * 1.8)
+            .attr("font-weight", "bold")
+            .attr("font-size", "20pt")
+            .text(formatMoneyFromTrillions(d.data.value_trillions));
+        }
       });
+
+  var mosaicTexts = svg3.selectAll(".mosaic-label");
+
+  function animateMosaic() {
+    mosaicRects
+      .interrupt()
+      .attr('height', 0)
+      .attr('y', function (d) { return d.y1; })
+      .transition()
+      .duration(900)
+      .delay(function(d, i) { return i * 120; })
+      .ease(d3.easeCubicOut)
+      .attr('y', function (d) { return d.y0; })
+      .attr('height', function (d) { return d.y1 - d.y0; });
+
+    mosaicTexts
+      .interrupt()
+      .transition()
+      .delay(function(d, i) { return 250 + (i * 120); })
+      .duration(500)
+      .style("opacity", 1);
+  }
+
+  var mosaicChartContainer = document.querySelector("#mosaic_chart");
+  if (mosaicChartContainer && "IntersectionObserver" in window) {
+    var hasAnimatedMosaic = false;
+    var mosaicObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!hasAnimatedMosaic && entry.isIntersecting) {
+          hasAnimatedMosaic = true;
+          animateMosaic();
+          mosaicObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+
+    mosaicObserver.observe(mosaicChartContainer);
+  } else {
+    animateMosaic();
+  }
 
 }).catch(function(error) {
   console.error("Error loading data:", error);
@@ -385,4 +531,70 @@ console.log(root.leaves())
     .attr("text-anchor", "middle")
     .attr("fill", "red")
     .text("Error loading data. Check file path.");
+});
+
+// ==========================
+// FIRST SECTION SVG REVEAL ANIMATION
+// ==========================
+document.addEventListener("DOMContentLoaded", function () {
+  var firstSectionSvgs = Array.from(document.querySelectorAll(".first-section-svg"));
+  if (!firstSectionSvgs.length) {
+    return;
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    firstSectionSvgs.forEach(function (el) {
+      el.classList.add("is-visible");
+    });
+    return;
+  }
+
+  var firstSectionObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        firstSectionObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.25 });
+
+  firstSectionSvgs.forEach(function (el) {
+    firstSectionObserver.observe(el);
+  });
+});
+
+// ==========================
+// SCROLLAMA - HIGHLIGHT BOX ANIMATION
+// ==========================
+document.addEventListener("DOMContentLoaded", function () {
+  if (typeof scrollama !== "function") {
+    return;
+  }
+
+  var steps = Array.from(document.querySelectorAll(".scrolly-highlight-step"));
+  if (!steps.length) {
+    return;
+  }
+
+  var scroller = scrollama();
+
+  scroller
+    .setup({
+      step: ".scrolly-highlight-step",
+      offset: 0.72,
+      progress: false,
+      debug: false
+    })
+    .onStepEnter(function (response) {
+      response.element.classList.add("is-active");
+    })
+    .onStepExit(function (response) {
+      if (response.direction === "up") {
+        response.element.classList.remove("is-active");
+      }
+    });
+
+  window.addEventListener("resize", function () {
+    scroller.resize();
+  });
 });

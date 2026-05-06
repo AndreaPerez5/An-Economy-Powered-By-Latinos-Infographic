@@ -1,149 +1,99 @@
 <!DOCTYPE html>
-<html>
-
-  <!--css link -->
-  <link rel="stylesheet" href="style.css?v=20260403d">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-
-  <!--load d3.js-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>An Economy Powered By Latinos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20260502a" />
   <script src="https://d3js.org/d3.v6.js"></script>
   <script src="https://unpkg.com/scrollama"></script>
-
- 
+</head>
 <body>
   <header class="hero-section">
-    <!-- header graphic -->
     <img class="hero-header hero-media" src="Images/Header.gif" alt="title treatment" />
-
-    <img class="title-svg" src="Images/SVG/title.svg" alt="">
-
-    <!-- author info -->
+    <img class="title-svg" src="Images/SVG/title.svg" alt="" />
     <h3>By Andrea Perez</h3>
-    
+    <div class="author-background" aria-hidden="true"></div>
 
-  <div class="author-background" aria-hidden="true"></div>
-
-<!-- Article intro text -->
-  <div class="container">
-    <p class="intro"> The U.S. Latino community is no longer just a demographic trend—it is the engine of the American economy. Now 68 million strong, Latinos represent one-in-five Americans and account for more than half of the nation's total population growth since 2000. The economic impact is staggering: in 2023, the U.S. Latino GDP hit $4 trillion, effectively making it the 5th largest economy in the world if measured as a standalone nation.
-<br> 
-<br>
-
-While public discourse often narrows its focus to migration, the data reveals a far more significant reality: the Latino community is an indispensable economic titan. By replacing outdated stereotypes with hard data, we see that Latino hard work and entrepreneurship aren’t merely cultural traits—they are the bedrock of modern American prosperity. 
-<br>
-<br>
- This is a story of a community reframed, moving beyond simple demographics to emerge as a primary driver of national wealth.
-With a workforce of 32 million and a labor participation rate that consistently outpaces the national average, this community has become the nation’s backbone. From 5 million Latino-owned businesses to a record $2.5 trillion in annual spending power, 
-the revelation is clear: the future of the American Dream is being fueled by the ambition and unstoppable spirit of its Latino population.
-
-  </div>
-
-
-  <!-- First graphic section -->
-  <section class="background-section">
-    <h2 class="step">TOTAL LATINO POPULATION IN THE US </h2>
-    
-
-      <!-- First Graphic Section -->
     <div class="container">
-      <img class="original-size-image map-image" src="Images/SVG/map.svg" alt="map illustration">
+      <p class="intro">The U.S. Latino community is no longer just a demographic trend—it is the engine of the American economy. Now 68 million strong, Latinos represent one-in-five Americans and account for more than half of the nation's total population growth since 2000. The economic impact is staggering: in 2023, the U.S. Latino GDP hit $4 trillion, effectively making it the 5th largest economy in the world if measured as a standalone nation.<br><br>
+      While public discourse often narrows its focus to migration, the data reveals a far more significant reality: the Latino community is an indispensable economic titan. By replacing outdated stereotypes with hard data, we see that Latino hard work and entrepreneurship aren’t merely cultural traits—they are the bedrock of modern American prosperity.<br><br>
+      This is a story of a community reframed, moving beyond simple demographics to emerge as a primary driver of national wealth. With a workforce of 32 million and a labor participation rate that consistently outpaces the national average, this community has become the nation’s backbone. From 5 million Latino-owned businesses to a record $2.5 trillion in annual spending power, the revelation is clear: the future of the American Dream is being fueled <br>by the ambition and unstoppable spirit of its Latino population.</p>
     </div>
-<p style="margin-top: 30px; margin-bottom: 20px;">Representing 20% of the total population, the 68 million Americans of Latino descent <br> are the nation's largest racial or ethnic minority.</p>
+  </header>
+
+  <section class="content-section">
+    <h2>Total Latino Population in the U.S.</h2>
+    <p>Representing 20% of the total population, the 68 million Americans<br> of Latino descent are the nation's largest racial or ethnic minority.</p>
+    <div class="container">
+      <img class="original-size-image first-section-svg" src="Images/SVG/map.svg" alt="map illustration" />
+    </div>
     <div class="container stats-container">
-      <img class="svg-responsive" src="Images/SVG/stats.svg" alt="stats illustration">
+      <img class="svg-responsive first-section-svg first-section-svg-delay" src="Images/SVG/stats.svg" alt="stats illustration" />
     </div>
 
-      <!-- First graphic paragraph in container --> 
-  </section>
-  <div class="container">
-    <div class="highlight-box">
-      <p class="body">Latinos are among the fastest-growing racial or ethnic groups in the United States. Between 2000 and 2024, 
-        the Latino population nearly doubled, rising from 35.3 million to 68 million. Latinos accounted for more than half of all U.S. population growth during that period.</p>
-      <p class="body">Today, Latinos are the country’s second-largest racial or ethnic group, making up one-in-five Americans. 
-        They are also strikingly diverse, relatively young, mostly U.S. born and increasingly dispersed across the country.</p>
-    </div>
-  </div>
-  </section>
-  
-
-  <!-- Second graphic section -->
-    <h2 class="step">LATINOS ARE MAJOR DRIVERS OF THE U.S. ECONOMY </h2>
-      <p style="margin-top: 50px; margin-bottom: 50px;"> The U.S. Latino economy reached $4 trillion in 2023, making it the 5th largest <br> economy in the world if measured independently.</p>
-
-<!-- D3 Bar Chart -->   
-<div id="barchart"></div>
-
-
-<!-- Second graphic paragraph in container --> 
-  </section>
-  <div class="container">
-    <div class="highlight-box">
-      <p class="body">Latinos are an essential force in America’s economy.<br> 
-        The U.S. Latino economy is expected to continue expanding faster than most first-world economies,<br>
-         supported by population growth, youth, business formation, improvements in educational attainment, and general upward mobility.</p>
+    <div class="container scrolly-highlight-step">
+      <div class="highlight-box">
+        <p class="body">Latinos are among the fastest-growing racial or ethnic groups in the United States. Between 2000 and 2024, the Latino population nearly doubled, rising from 35.3 million to 68 million. Latinos accounted for more than half of all U.S. population growth during that period. Today, Latinos are the country’s second-largest racial or ethnic group, making up one-in-five Americans. They are also strikingly diverse, relatively young, mostly U.S. born and increasingly dispersed across the country.</p>
       </div>
-  </section>
-
-
-<!-- Third graphic section -->
-
-<h2 class="impact-title step">THE IMPACT OF HISPANIC-OWNED BUSINESSES <br>  ON THE U.S. ECONOMY </h2>
-      
-      <img class="workers-image" src="Images/SVG/workers.svg" alt="graphic with data on Latino-owned businesses and workers" />
-
-      <!-- Third graphic paragraph in container --> 
-</section>
-  <div class="container">
-    <div class="highlight-box">
-      <p class="body">Data from the U.S. Bureau of Labor Statistics show that there are more than 5 million Latino-owned businesses operating in the country, employing more than 3.5 million workers. These businesses  contribute over $800 billion per year to the U.S. economy through sales trade. The number of LOBs grew by close to 1 million new businesses from 2018 to 2024. Latino businesses with employees are concentrated in six important industrial sectors: construction, accommodation &  food services, professional, scientific, and technical services,administrative and support services, health care and social assistance, and retail.</p>
     </div>
-  </div>
   </section>
 
-      <!-- Fourth graphic section -->
-<h2 class="step">THE BACKBONE OF THE U.S. WORKFORCE </h2>
-      <p style="margin-top: 50px; margin-bottom: 50px;"> The Latino workforce reached an average of 32 million workers in 2025, marking a 5.5%
-year-over-year increase and a 46.5% rise since 2010. The Latino labor force participation
-rate reached 69%, well above the national average. </p>
-
-<!-- Line Chart -->
- <div id="line_chart"> </div>
-
-</section>
-  <div class="container">
-    <div class="highlight-box">
-      <p class="body">The data highlights a significant shift in the American economic landscape, positioning the Latino community as a primary driver of national labor growth. With a workforce expanding to 32 million in 2025, the 46.5% increase since 2010 underscores a long-term trend of rapid demographic integration and economic contribution. Perhaps most telling is the 67% labor force participation rate, which comfortably outpaces the national average. This statistic reflects not just a growing population, but a highly active and engaged demographic that is effectively serving as the "backbone" of the modern U.S. economy.</p>
+  <section class="content-section">
+    <h2>Latinos Are Major Drivers of the U.S. Economy</h2>
+    <p class="barchart-intro">The U.S. Latino economy reached $4 trillion in 2023, making it the 5th largest economy <br> in the world if measured independently.</p>
+    <div id="barchart"></div>
+    <div class="container scrolly-highlight-step">
+      <div class="highlight-box">
+        <p class="body">Latinos are an essential force in America’s economy. The U.S. Latino economy is expected to continue expanding faster than most first-world economies, supported by population growth, youth, business formation, improvements in educational attainment, and general upward mobility.</p>
+      </div>
     </div>
-  </div>
   </section>
 
-       <!-- Fifth graphic section -->
-<h2 class="step">INVESTING IN THE AMERICAN PROMISE</h2>
-      <p style="margin-top: 50px; margin-bottom: 50px;">Latino households are the defining force of the U.S. economy. By 2023, their gross domestic income (GDI) <br>  reached a record $3.1 trillion, a massive increase from $1.2 trillion in 2019.  </p>
-
-<!-- Mosaic Chart -->
- <div id="mosaic_chart"> </div>
-
-<script src="script.js"></script>
-
-<b class="chart-footnote">2023 Total Domestic Income (GDI): $3.1 trillion</b>
-
-</section>
-  <div class="container">
-    <div class="highlight-box">
-      <p class="body">This surge in earnings enabled the community to contribute an estimated $815 billion in total taxes, including approximately $520 billion in federal income taxes and over $295 billion in state and local taxes. Even after meeting these substantial tax obligations, Latino households held over $2.5 trillion in pure spending power, driving growth across every major American industry.</p>
+  <section class="content-section">
+    <h2>The Impact of Hispanic-Owned Businesses <br> on the U.S. Economy</h2>
+    <p>Data from the U.S. Bureau of Labor Statistics show that there are more than 5 million Latino-owned businesses operating in the country, employing more than 3.5 million workers.</p>
+    <img class="workers-image" src="Images/Workers.png" alt="">
+    
+    <div class="container scrolly-highlight-step">
+      <div class="highlight-box">
+        <p class="body"> These businesses contribute over $800 billion per year to the U.S. economy through sales trade. Latino businesses with employees are concentrated in key sectors including construction, accommodation & food services, professional services, administrative support, health care and social assistance, and retail.</p>
+      </div>
     </div>
-  </div>
   </section>
 
-<footer>
-  <p class="footer-source">Sources: U.S. Census Bureau, Pew Research Center , 2025 Official LDC U.S. Latino GDP Report™</p>
-  <img src="Images/Footer.svg" alt="Footer Image">
-  
-</footer>
+  <section class="content-section">
+    <h2>The Backbone of the U.S. Workforce</h2>
+    <p>The Latino workforce reached an average of 32 million workers in 2025, marking a 5.5% year-over-year increase and a 46.5% rise since 2010. <br> The Latino labor force participation rate reached 69%, above the national average.</p>
+    <div id="line_chart"></div>
+    <div class="container scrolly-highlight-step">
+      <div class="highlight-box">
+        <p class="body">The data highlights a significant shift in the American economic landscape, positioning the Latino community as a primary driver of national labor growth. As older generations exit the workforce, the youthful demographic profile of the Latino community is effectively filling the vacuum, driving expansion in sectors ranging from healthcare to technology. This data highlights a fundamental shift in the American economic landscape, positioning Latino workers not just as participants, but as the primary drivers of national labor growth and the most critical hedge against domestic labor shortages.
+</p>
+      </div>
+    </div>
+  </section>
 
+  <section class="content-section">
+    <h2>Investing in the American Promise</h2>
+    <p>Latino households are a defining force of the U.S. economy.<br>By 2023, their gross domestic income reached a record $3.1 trillion, up from $1.2 trillion in 2019.</p>
+    <div id="mosaic_chart"></div>
+    <b class="chart-footnote">2023 Total Domestic Income (GDI): $3.1 trillion</b>
+    <div class="container scrolly-highlight-step">
+      <div class="highlight-box">
+        <p class="body">This surge in earnings enabled the community to contribute an estimated $815 billion in total taxes.<br>Even after tax obligations, Latino households held over $2.5 trillion in spending power,<br> driving growth across major American industries.</p>
+      </div>
+    </div>
+  </section>
 
+  <footer>
+    <p class="footer-source">Spring 2026 | Sources: U.S. Census Bureau, Pew Research Center, 2025 Official LDC U.S. Latino GDP Report™</p>
+    <img src="Images/Footer.svg" alt="Footer Image" />
+  </footer>
+
+  <script src="script.js?v=20260502a"></script>
 </body>
-
 </html>
